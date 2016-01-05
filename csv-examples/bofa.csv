@@ -1,0 +1,12 @@
+Description,,Summary Amt.
+Beginning balance as of 10/01/2015,,"31603.15"
+Total credits,,"76573.51"
+Total debits,,"-36310.55"
+Ending balance as of 01/04/2016,,"75091.11"
+
+Date,Description,Amount,Running Bal.
+10/01/2015,Beginning balance as of 10/01/2015,,"31603.15"
+10/02/2015,"PEAR TREE DES:ONLINE PAY ID:EPAY1234 INDN:XUEXUAN CHEN CO ID:XXXXX1234 WEB","-4485.57","36943.51"
+12/23/2015,"Interest Earned","0.90","75723.50"
+12/28/2015,"T.M.C.C DES:LOAN PMT ID:XXXXX1234 INDN:CXXX CO ID:XXXXX1234 WEB","-714.04","71584.11"
+12/30/2015,"Mobile/Email Transfer Conf# 112749047; XXX WXXX","66.00","75091.11"
