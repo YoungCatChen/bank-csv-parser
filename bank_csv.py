@@ -25,6 +25,8 @@ def Parse(csv_content, line_parser=None):
     if tran:
       transactions.append(tran)
 
+  return transactions
+
 
 def _HasHeader(csv_content):
   first_line = csv_content.split('\n')[0]
