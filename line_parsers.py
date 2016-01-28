@@ -123,6 +123,21 @@ class ChaseAccountParser(AbstractDirectExtractLineParser):
 
 
 @RegisterLineParser
+class ChaseAccount2Parser(AbstractDirectExtractLineParser):
+  STATEMENT_FORMAT = 'Chase Bank Account'
+  DATE_FORMAT = '%m/%d/%Y'
+  DATE_FIELD = 'Posting Date'
+  AMOUNT_FIELD = 'Amount'
+  DESC_FIELD = 'Description'
+  TYPE_FIELD = 'Type'
+
+  @classmethod
+  def FirstLineFits(cls, first_line):
+    return first_line == ('Details,Posting Date,"Description",Amount,'
+                          'Type,Balance,Check or Slip #,')
+
+
+@RegisterLineParser
 class ChaseCardParser(AbstractDirectExtractLineParser):
   STATEMENT_FORMAT = 'Chase Credit Card'
   DATE_FORMAT = '%m/%d/%Y'
