@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import csv
 import datetime
 import models
@@ -149,6 +151,30 @@ class ChaseCardParser(AbstractDirectExtractLineParser):
   @classmethod
   def FirstLineFits(cls, first_line):
     return first_line == 'Type,Trans Date,Post Date,Description,Amount'
+
+
+@RegisterLineParser
+class CMBParser(AbstractLineParser):
+  STATEMENT_FORMAT = 'China Merchants Bank'
+
+  @classmethod
+  def FirstLineFits(cls, first_line):
+    return first_line == '交易日期,交易时间,支出,存入,余额,交易类型,交易备注'
+
+  def ParseLine(self, line_dict):
+    date = datetime.datetime.strptime(line_dict['交易日期'], '%Y-%m-%d').date()
+    amount_str_out = self._Strip(line_dict['支出'])
+    amount_str_in = self._Strip(line_dict['存入'])
+    description = line_dict['交易类型'] + ' ' + line_dict['交易备注']
+    if amount_str_out:
+      amount = -float(amount_str_out)
+    else:
+      amount = float(amount_str_in)
+    return models.Transaction(date, amount, description, None)
+
+  @staticmethod
+  def _Strip(s):
+    return unicode(s, "UTF-8").replace(',', '').replace(u'\u00a0', '').strip()
 
 
 @RegisterLineParser
