@@ -135,8 +135,10 @@ class ChaseAccount2Parser(AbstractDirectExtractLineParser):
 
   @classmethod
   def FirstLineFits(cls, first_line):
-    return first_line == ('Details,Posting Date,"Description",Amount,'
-                          'Type,Balance,Check or Slip #,')
+    return first_line in [('Details,Posting Date,"Description",Amount,'
+                           'Type,Balance,Check or Slip #,'),
+                          ('Details,Posting Date,Description,Amount,'
+                           'Type,Balance,Check or Slip #')]
 
 
 @RegisterLineParser
@@ -192,6 +194,10 @@ class DiscoverCardParser(AbstractDirectExtractLineParser):
 
   def StripNonCsvData(self, csv_content):
     return csv_content.replace('\t', '')
+
+  def ParseLine(self, line_dict):
+    tran = super(DiscoverCardParser, self).ParseLine(line_dict)
+    return tran._replace(amount=-tran.amount)
 
 
 @RegisterLineParser
